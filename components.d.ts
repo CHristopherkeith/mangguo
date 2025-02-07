@@ -12,7 +12,13 @@ declare module 'vue' {
     VanButton: typeof import('vant/es')['Button']
     VanCell: typeof import('vant/es')['Cell']
     VanCellGroup: typeof import('vant/es')['CellGroup']
+    VanCol: typeof import('vant/es')['Col']
+    VanDivider: typeof import('vant/es')['Divider']
     VanIcon: typeof import('vant/es')['Icon']
+    VanImage: typeof import('vant/es')['Image']
     VanNavBar: typeof import('vant/es')['NavBar']
+    VanRow: typeof import('vant/es')['Row']
+    VanStep: typeof import('vant/es')['Step']
+    VanSteps: typeof import('vant/es')['Steps']
   }
 }
