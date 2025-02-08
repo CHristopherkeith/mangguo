@@ -13,6 +13,7 @@ import processConfig from './postcss.config'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/mangguo/',
   plugins: [
     vue(),
     vueJsx(),
