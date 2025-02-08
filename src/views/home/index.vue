@@ -1,21 +1,17 @@
 <template>
   <div class="home">
-    <van-nav-bar class="navbar" title="芒果财税" fixed placeholder />
+    <van-nav-bar class="navbar" title="企业服务" fixed placeholder safe-area-inset-top />
     <div class="content">
       <div class="contact">
-        <van-cell title="客服电话 15202060667 点击拨号" is-link url="tel:15202060667" />
-        <div class="contact__wechat">
-          <van-cell
-            class="contact__wechat__desc"
-            title="客服微信 15202060667 右边扫码添加"
-            is-link
-          />
-          <van-image width="100" height="100" :src="wechatImg" />
+        <div class="contact__left">
+          <van-button plain type="primary" icon="phone" url="tel:15202060667">
+            客服电话:15202060667(点击拨号)
+          </van-button>
+          <van-button plain type="primary" icon="wechat">
+            客服微信:15202060667(右侧扫码)
+          </van-button>
         </div>
-        <!-- <van-cell title="客服微信 15202060667 下方扫码添加" size="large" is-link />
-        <div class="contact__img-wrapper">
-          <van-image width="100" height="100" :src="wechatImg" />
-        </div> -->
+        <van-image class="contact__img" width="100" height="100" :src="wechatImg" />
       </div>
       <div class="block">
         <div class="block__title">经营异常后果严重，最高罚款10000元</div>
@@ -58,9 +54,15 @@
             <span class="block__steps__top__title">步骤一：</span>
             <span>提交办理，支付手续费，保留付款截图</span>
           </div>
-          <van-button class="block__steps__submit" type="primary" icon="alipay">
+          <van-button
+            class="block__steps__submit"
+            type="primary"
+            icon="alipay"
+            @click="handleSubmit"
+          >
             <span>点此 补报申报</span>
             <span class="block__steps__submit__price">￥298.00</span>
+            <span>/</span>
             <span>￥58.00</span>
           </van-button>
         </div>
@@ -85,11 +87,11 @@
         <div class="block__image"><van-image width="80%" :src="compareImg" /></div>
       </div>
       <div class="block">
-        <div class="block__title">选择芒果财税，享受专业资质</div>
+        <div class="block__title">选择企业服务，享受专业资质</div>
         <div class="block__image"><van-image width="80%" :src="licenseImg" /></div>
       </div>
     </div>
-    <van-button class="deal" type="primary"> 提交办理 </van-button>
+    <van-button class="deal" type="primary" @click="handleSubmit"> 提交办理 </van-button>
   </div>
 </template>
 
@@ -97,34 +99,53 @@
 import wechatImg from '@/assets/images/wechat.jpg'
 import compareImg from '@/assets/images/compare.png'
 import licenseImg from '@/assets/images/license.jpg'
-const resultIcon = [
+
+const resultIcon: { title: string; icon: string; id: number }[] = [
   { title: '经营异常状态', icon: 'warning', id: 1 },
   { title: '银行贷款受阻', icon: 'gold-coin', id: 2 },
   { title: '工商行政处罚', icon: 'clear', id: 3 },
 ]
+
+// 打开支付宝转账
+function handleSubmit(): void {
+  const a = document.createElement('a')
+  a.href =
+    'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount=0.01&account=15202060667&memo=%E6%9D%A5%E6%BA%90%EF%BC%9A%E8%A1%A5%E6%8A%A5%E7%94%B3%E6%8A%A5'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
 </script>
 
 <style scoped lang="scss">
 .home {
   height: 100%;
   padding: 10px;
-
   display: flex;
   flex-direction: column;
   .navbar {
+    :deep(.van-nav-bar__title) {
+      color: var(--van-primary-color);
+    }
   }
   .content {
     flex: 1;
     overflow: auto;
     .contact {
-      &__wechat {
-        padding-top: 10px;
+      display: flex;
+      flex-direction: row;
+      &__left {
+        flex: 1;
         display: flex;
-        flex-direction: row;
-        &__desc {
-          flex: 1;
-          // overflow: hidden;
+        flex-direction: column;
+        justify-content: space-between;
+        // justify-items: center;
+        :deep(.van-button) {
+          padding: 0 8px;
         }
+      }
+      &__img {
+        margin-left: 5px;
       }
     }
     .block {
